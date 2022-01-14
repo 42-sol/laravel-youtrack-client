@@ -1,22 +1,21 @@
 ## Installation
 
-### Publish packages resources
-
-This will create `config/youtrack.php` configuration file.
-
-```shell
-php artisan vendor:publish --provider="YouTrackClient\Providers\YouTrackClientProvider"
-```
-
-### [Optional] Include service provider in your app
-If you want use `YouTrackClient` dependency injection, will insert library service provider 
-`YouTrackClient\Providers\YouTrackClientProvider::class` in your `config/app.php` file:
+### Include service provider in your app
+Insert library service provider `YouTrackClient\Providers\YouTrackClientProvider::class` in your `config/app.php` file:
 
 ```php
 'providers' => [
     // other service providers
     YouTrackClient\Providers\YouTrackClientProvider::class,
 ]
+```
+
+### Publish packages resources
+
+This will create `config/youtrack.php` configuration file.
+
+```shell
+php artisan vendor:publish --provider="YouTrackClient\Providers\YouTrackClientProvider"
 ```
 
 ### Configure
