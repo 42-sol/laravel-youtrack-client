@@ -24,7 +24,7 @@ After publishing package resources you can edit configuration in `config/youtrac
 
 To set your YouTrack instance add to `.env` variables:
 ```dotenv
-YT_BASE_URL=https://youtrack.example.com/api           # required
+YT_BASE_URL=https://youtrack.example.com               # required
 # YT_HUB_URL=https://youtrack.example.com/hub/api/rest # optional
 YT_TOKEN="youtrack access token"                       # required
 ```
