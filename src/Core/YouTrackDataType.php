@@ -50,6 +50,10 @@ class YouTrackDataType implements JsonSerializable
         $this->fields = $this->transformFields($data);
         $this->client = App::make(YouTrackClient::class);
     }
+    
+    public function __get($property) {
+        return Arr::get($this->fields, $property);
+    }
 
     public function jsonSerialize()
     {
