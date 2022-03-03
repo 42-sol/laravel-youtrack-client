@@ -2,6 +2,7 @@
 
 namespace YouTrackClient\Types;
 
+use Illuminate\Support\Arr;
 use YouTrackClient\Core\YouTrackDataType;
 
 class Issue extends YouTrackDataType
@@ -11,13 +12,15 @@ class Issue extends YouTrackDataType
     protected function transform($data): array{
         $data['custom'] = [];
 
-        foreach ($data['customFields'] as $customField) {
-            $name = $customField['name'];
+        if (Arr::has($data, 'customFields')) {
+            foreach ($data['customFields'] as $customField) {
+                $name = $customField['name'];
 
-            $data['custom'][$name] = $customField;
+                $data['custom'][$name] = $customField;
+            }
+
+            unset($data['customFields']);
         }
-
-        unset($data['customFields']);
 
         return $data;
     }
