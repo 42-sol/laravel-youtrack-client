@@ -15,7 +15,7 @@ class YoutrackDefaultController extends BaseController
     use DispatchesJobs;
     use ValidatesRequests;
 
-    private YouTrackClient $client;
+    protected YouTrackClient $client;
 
     public function __construct(YouTrackClient $client)
     {
