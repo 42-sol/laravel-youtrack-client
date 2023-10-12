@@ -12,6 +12,7 @@ class YouTrackRoutes
         Route::get('/projects', [YoutrackDefaultController::class, 'listProjects']);
         Route::get('/projects/{id}', [YoutrackDefaultController::class, 'getProject']);
         Route::get('/projects/{id}/issues', [YoutrackDefaultController::class, 'listProjectIssues']);
+        Route::get('/projects/{id}/articles', [YoutrackDefaultController::class, 'listProjectArticles']);
         Route::get(
             '/projects/{id}/timeTrackingSettings',
             [YoutrackDefaultController::class, 'getProjectTimeTrackingSettings']
@@ -26,5 +27,9 @@ class YouTrackRoutes
         Route::get('/organizations', [YoutrackDefaultController::class, 'listOrganizations']);
 
         Route::get('/users', [YoutrackDefaultController::class, 'listUsers']);
+
+        Route::get('/articles', [YoutrackDefaultController::class, 'listArticles']);
+        Route::get('/articles/{id}', [YoutrackDefaultController::class, 'getArticle']);
+        Route::get('/articles/{id}/childArticles', [YoutrackDefaultController::class, 'listArticleChild']);
     }
 }

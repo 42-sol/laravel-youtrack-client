@@ -42,6 +42,11 @@ class YoutrackDefaultController extends BaseController
         return $this->client->getIssues("project: $id");
     }
 
+    public function listProjectArticles(string $projectId)
+    {
+        return $this->client->getProjectArticles($projectId);
+    }
+
     public function getProjectTimeTrackingSettings(string $projectId)
     {
         return $this->client->getProjectTimeTrackingSettings($projectId);
@@ -74,5 +79,20 @@ class YoutrackDefaultController extends BaseController
     public function listUsers()
     {
         return $this->client->getUsers();
+    }
+
+    public function listArticles()
+    {
+        return $this->client->getArticles();
+    }
+
+    public function listArticleChild(string $articleId)
+    {
+        return $this->client->getArticleChild($articleId);
+    }
+
+    public function getArticle(string $id)
+    {
+        return $this->client->getArticle($id);
     }
 }

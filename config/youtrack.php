@@ -22,6 +22,12 @@ return [
             'class' => \YouTrackClient\Types\Project::class
         ],
 
+        'article' => [
+            'fields' => 'id,idReadable,summary,project(shortName),childArticles(id),parentArticle(id),ordinal',
+            'detailFields' => 'created,updated,id,idReadable,reporter(name),summary,project(shortName),content,childArticles(id),parentArticle(id),ordinal',
+            'class' => \YouTrackClient\Types\Article::class
+        ],
+
         'agile' => [
             'fields' => 'id,name,projects(id,shortName)',
             'detailFields' => 'id,name,columnSettings(field(id,name)'

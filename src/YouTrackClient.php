@@ -3,6 +3,7 @@
 namespace YouTrackClient;
 
 use YouTrackClient\Types\Agile;
+use YouTrackClient\Types\Article;
 use YouTrackClient\Types\Issue;
 use YouTrackClient\Types\Organization;
 use YouTrackClient\Types\Project;
@@ -106,6 +107,27 @@ class YouTrackClient
 
         $class = $this->getTypeClass('projectTimeTrackingSettings');
         return new $class($data);
+    }
+
+    /**
+     * Get Articles in a Project
+     *
+     * @link https://www.jetbrains.com/help/youtrack/devportal/resource-api-admin-projects-projectID-articles.html
+     *
+     * @return Article[]
+     */
+    public function getProjectArticles(string $projectId, int $offset = 0, int $limit = 5065550): array {
+        $query = [
+            'fields' => $this->getTypeFields('article'),
+            '$skip' => $offset,
+            '$top' => $limit
+        ];
+
+        return $this
+            ->get("/admin/projects/{$projectId}/articles", $query)
+            ->collect()
+            ->mapInto($this->getTypeClass('article'))
+            ->toArray();
     }
 
     /**
@@ -246,6 +268,61 @@ class YouTrackClient
             ->collect()
             ->mapInto($this->getTypeClass('user'))
             ->toArray();
+    }
+
+    /**
+     * Get articles
+     *
+     * @link https://www.jetbrains.com/help/youtrack/devportal/resource-api-articles.html#get_all-Article-method Get All articles
+     *
+     * @return Article[]
+     */
+    public function getArticles(): array {
+        $query = [
+            'fields' => $this->getTypeFields('article'),
+        ];
+
+        return $this
+            ->get('/articles', $query)
+            ->collect()
+            ->mapInto($this->getTypeClass('article'))
+            ->toArray();
+    }
+
+    public function getArticleChild(string $articleId, int $offset = 0, int $limit = 50): array {
+        $query = [
+            'fields' => $this->getTypeFields('article'),
+            '$skip' => $offset,
+            '$top' => $limit
+        ];
+
+        return $this
+            ->get("/articles/{$articleId}/childArticles", $query)
+            ->collect()
+            ->mapInto($this->getTypeClass('article'))
+            ->toArray();
+    }
+
+    /**
+     * Get articles detailed description
+     *
+     * @link https://www.jetbrains.com/help/youtrack/devportal/resource-api-articles.html#Article-supported-fields
+     *
+     * @param string $id
+     * @return Project
+     */
+    public function getArticle(string $id): Article
+    {
+        $query = [
+            'fields' => $this->getTypeDetailedFields('article')
+        ];
+
+        $data = $this
+            ->get("/articles/{$id}", $query)
+            ->json();
+
+        $class = $this->getTypeClass('article');
+        return new $class($data);
     }
 
     /**
