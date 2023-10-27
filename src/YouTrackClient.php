@@ -303,6 +303,20 @@ class YouTrackClient
             ->toArray();
     }
 
+    public function getArticleAttachments(string $articleId, int $offset = 0, int $limit = 500): array {
+        $query = [
+            'fields' => $this->getTypeFields('attachment'),
+            '$skip' => $offset,
+            '$top' => $limit
+        ];
+
+        return $this
+            ->get("/articles/{$articleId}/attachments", $query)
+            ->collect()
+            ->mapInto($this->getTypeClass('attachment'))
+            ->toArray();
+    }
+
     /**
      * Get articles detailed description
      *

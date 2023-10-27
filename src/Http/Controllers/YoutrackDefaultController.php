@@ -91,6 +91,11 @@ class YoutrackDefaultController extends BaseController
         return $this->client->getArticleChild($articleId);
     }
 
+    public function listArticleAttachments(string $articleId)
+    {
+        return $this->client->getArticleAttachments($articleId);
+    }
+
     public function getArticle(string $id)
     {
         return $this->client->getArticle($id);

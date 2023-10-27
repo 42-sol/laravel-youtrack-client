@@ -31,5 +31,6 @@ class YouTrackRoutes
         Route::get('/articles', [YoutrackDefaultController::class, 'listArticles']);
         Route::get('/articles/{id}', [YoutrackDefaultController::class, 'getArticle']);
         Route::get('/articles/{id}/childArticles', [YoutrackDefaultController::class, 'listArticleChild']);
+        Route::get('/articles/{id}/attachments', [YoutrackDefaultController::class, 'listArticleAttachments']);
     }
 }

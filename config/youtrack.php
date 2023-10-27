@@ -28,6 +28,11 @@ return [
             'class' => \YouTrackClient\Types\Article::class
         ],
 
+        'attachment' => [
+            'fields' => 'id,name,created,updated,size,mimeType,extension,url',
+            'class' => \YouTrackClient\Types\Attachment::class
+        ],
+
         'agile' => [
             'fields' => 'id,name,projects(id,shortName)',
             'detailFields' => 'id,name,columnSettings(field(id,name)'
