@@ -23,8 +23,8 @@ return [
         ],
 
         'article' => [
-            'fields' => 'id,idReadable,summary,project(shortName),childArticles(id,summary),parentArticle(id,summary),ordinal',
-            'detailFields' => 'created,updated,id,idReadable,reporter(name),summary,project(shortName),content,childArticles(id),parentArticle(id),ordinal',
+            'fields' => 'id,idReadable,summary,project(shortName),childArticles(id),parentArticle(id),ordinal',
+            'detailFields' => 'created,updated,id,idReadable,reporter(name),summary,project(shortName),content,childArticles(id,summary),parentArticle(id,summary),ordinal',
             'class' => \YouTrackClient\Types\Article::class
         ],
 
