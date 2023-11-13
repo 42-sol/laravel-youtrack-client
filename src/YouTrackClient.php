@@ -50,12 +50,17 @@ class YouTrackClient
      *
      * @link https://www.jetbrains.com/help/youtrack/devportal/resource-api-admin-projects.html#get_all-Project-method Get All Projects
      *
+     * @param int $offset lets you set a number of returned entities to skip before returning the first one.
+     * @param int $limit lets you specify the maximum number of entries that are returned in the response.
+     *
      * @return Project[]
      */
-    public function getProjects(): array
+    public function getProjects(int $offset = 0, int $limit = 5065550): array
     {
         $query = [
-            'fields' => $this->getTypeFields('project')
+            'fields' => $this->getTypeFields('project'),
+            '$skip' => $offset,
+            '$top' => $limit
         ];
 
         return $this
