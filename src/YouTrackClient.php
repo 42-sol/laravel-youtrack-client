@@ -282,10 +282,14 @@ class YouTrackClient
      *
      * @return Article[]
      */
-    public function getArticles(): array {
+    public function getArticles(string $search = ''): array {
         $query = [
             'fields' => $this->getTypeFields('article'),
         ];
+
+        if ($search) {
+            $query['query'] = $search;
+        }
 
         return $this
             ->get('/articles', $query)
