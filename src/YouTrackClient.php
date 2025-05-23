@@ -10,6 +10,7 @@ use YouTrackClient\Types\Project;
 use Illuminate\Http\Client\Response;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Log;
 use YouTrackClient\Types\ProjectTimeTrackingSettings;
 use YouTrackClient\Types\User;
 
@@ -381,9 +382,19 @@ class YouTrackClient
      */
     protected function get(string $uri, array $query = []): Response
     {
-        return Http::baseUrl($this->baseUrl)
+        $response = Http::baseUrl($this->baseUrl)
             ->withToken($this->token)
             ->get($uri, $query);
+
+        $json = $response->json();
+
+        if (!$json || Arr::has($json, 'error')) {
+            Log::error("[Youtrack] Request error:\r\n{$response->body()}");
+            
+            throw new \Exception(Arr::get($json, "error_description"));
+        }
+
+        return $response;
     }
 
     /**
@@ -395,9 +406,19 @@ class YouTrackClient
      */
     protected function getHub(string $uri, array $query = []): Response
     {
-        return Http::baseUrl($this->hubUrl)
+        $response = Http::baseUrl($this->hubUrl)
             ->withToken($this->token)
             ->get($uri, $query);
+
+        $json = $response->json();
+
+        if (!$json || Arr::has($json, 'error')) {
+            Log::error("[Youtrack] Request error:\r\n{$response->body()}");
+            
+            throw new \Exception(Arr::get($json, "error_description"));
+        }
+
+        return $response;
     }
 
     /**
@@ -410,12 +431,22 @@ class YouTrackClient
      */
     protected function post(string $uri, array $body, array $query = []): Response
     {
-        return Http::baseUrl($this->baseUrl)
+        $response = Http::baseUrl($this->baseUrl)
             ->withToken($this->token)
             ->withOptions([
                 'query' => $query
             ])
             ->post($uri, $body);
+
+        $json = $response->json();
+
+        if (!$json || Arr::has($json, 'error')) {
+            Log::error("[Youtrack] Request error:\r\n{$response->body()}");
+            
+            throw new \Exception(Arr::get($json, "error_description"));
+        }
+
+        return $response;
     }
 
     protected function getTypeFields(string $type) {
